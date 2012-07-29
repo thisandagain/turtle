@@ -33,10 +33,11 @@ function handler (req, res) {
 /**
  * Composition
  */
-function compose (from, obj) {
+function compose (from, cmd, obj) {
     return {
         user:       from.split('::')[0],
         uid:        from,
+        command:    cmd,
         digest:     crypto.createHash('sha1').update(JSON.stringify(obj)).digest("hex"),
         package:    obj
     }
@@ -54,9 +55,9 @@ io.sockets.on('connection', function (socket) {
     socket.on('command', function (from, data) {
         logo.convert(data, function (err, obj) {
             if (err) {
-                socket.emit('error', compose(from, err));
+                socket.emit('error', compose(from, data, err));
             } else {
-                io.sockets.volatile.emit('instruction', compose(from, obj));
+                io.sockets.volatile.emit('instruction', compose(from, data, obj));
             }
         });
     });
