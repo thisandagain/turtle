@@ -14,7 +14,7 @@ body {
     color: #222;
     background-color: #fff;
 
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Quicksand', Helvetica, sans-serif;
     font-size: 14px;
 }
 
@@ -60,7 +60,11 @@ body {
 
     margin: 20px auto 0px auto;
     border-radius: 4px;
-    font-size: 1em;
+    outline: none;
+    
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
 }
 
 /**
