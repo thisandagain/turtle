@@ -21,7 +21,7 @@ body {
 /**
  * ID definitions
  */
-#render, #turtle {
+#network, #user, #turtle {
     display: block;
     position: absolute;
 
