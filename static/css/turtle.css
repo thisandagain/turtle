@@ -1,0 +1,68 @@
+/**
+ * Primary style definitions.
+ *
+ * @package turtle
+ * @author Andrew Sliwinski <andrew@diy.org>
+ */
+
+/**
+ * Body definitions
+ */
+body {
+    margin: 0px;
+
+    color: #222;
+    background-color: #fff;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+/**
+ * ID definitions
+ */
+#render, #turtle {
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+
+#base {
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+
+#input {
+    display: block;
+    position: absolute;
+
+    width: 700px;
+    height: 75px;
+    top: 0%;
+    left: 50%;
+
+    margin: 20px 0px 0px -350px;
+    background-color: #efefef;
+    border-radius: 4px;
+}
+
+#input input {
+    display: block;
+    position: relative;
+
+    width: 650px;
+    height: 30px;
+
+    margin: 20px auto 0px auto;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/**
+ * Class definitions
+ */
