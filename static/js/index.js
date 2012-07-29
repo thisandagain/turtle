@@ -26,7 +26,7 @@ $(document).ready(function() {
     var turtle_ctx  = document.getElementById('turtle').getContext('2d');
 
     /**
-     * Window resize calc
+     * Window size calc
      */
     function calc() {
         size.width  = $(window).width();
@@ -42,7 +42,7 @@ $(document).ready(function() {
     calc();
 
     $(window).resize(function() {
-        calc();
+        window.location.reload();
     });
 
     /**
@@ -83,6 +83,9 @@ $(document).ready(function() {
     });
 
     socket.on('error', function (data) {
+        alert(data.package);
+
+        // Debug
         console.dir(data);
     });
 
