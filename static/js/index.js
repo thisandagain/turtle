@@ -12,14 +12,15 @@ $(document).ready(function() {
     var epoch       = Math.round((new Date()).getTime() / 1000);    // Timestamp
     var rand        = Math.floor(Math.random()*10001)               // Random seed
 
-    var user        = 'Astro::' + rand + epoch,
+    var user        = 'guest::' + rand + epoch,
         users       = new Object(null),
         size        = {
             width:  $(window).width(),
             height: $(window).height()
         };
 
-    var canvas_ctx  = document.getElementById('render').getContext('2d');
+    var network_ctx = document.getElementById('network').getContext('2d');
+    var user_ctx    = document.getElementById('user').getContext('2d');
     var turtle_ctx  = document.getElementById('turtle').getContext('2d');
 
     /**
@@ -29,10 +30,12 @@ $(document).ready(function() {
         size.width  = $(window).width();
         size.height = $(window).height();
 
-        canvas_ctx.canvas.width  = size.width;
-        canvas_ctx.canvas.height = size.height;
-        turtle_ctx.canvas.width  = size.width;
-        turtle_ctx.canvas.height = size.height;
+        network_ctx.canvas.width    = size.width;
+        network_ctx.canvas.height   = size.height;
+        user_ctx.canvas.width       = size.width;
+        user_ctx.canvas.height      = size.height;
+        turtle_ctx.canvas.width     = size.width;
+        turtle_ctx.canvas.height    = size.height;
     }
     calc();
 
@@ -41,16 +44,20 @@ $(document).ready(function() {
     });
 
     /**
+     * Init new user
+     */
+    users[user] = new CanvasTurtle(user_ctx, true, size.width, size.height);
+    users[user].home();
+
+    /**
      * Socket.io events
      */
     var socket = io.connect('http://192.168.1.66');
 
     socket.on('instruction', function (data) {
-        console.dir(data);
-
         // Check for user context & create if not found
         if (typeof users[data.uid] === 'undefined') {
-            users[data.uid] = new CanvasTurtle(canvas_ctx, turtle_ctx, size.width, size.height);
+            users[data.uid] = new CanvasTurtle(network_ctx, false, size.width, size.height);
         }
 
         // Pass package to user context
@@ -64,8 +71,12 @@ $(document).ready(function() {
             }
         }
 
+        // End
         users[data.uid].end();
-        console.log('x: %1 | y: %1', users[data.uid].x, users[data.uid].y);
+
+        // Debug
+        console.dir(data);
+        console.log('x: %s | y: %s', users[data.uid].x, users[data.uid].y);
     });
 
     socket.on('error', function (data) {
