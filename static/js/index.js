@@ -14,6 +14,8 @@ $(document).ready(function() {
 
     var user        = 'guest::' + rand + epoch,
         users       = new Object(null),
+        history     = [],
+        history_i   = 0;
         size        = {
             width:  $(window).width(),
             height: $(window).height()
@@ -84,12 +86,49 @@ $(document).ready(function() {
     });
 
     /**
-     * Form
+     * UI events
      */
     $('form').submit(function() {
-        socket.emit('command', user, $('form input:first').val());
+        var cmd = $('form input:first').val();
+        history.push(cmd); history_i = history.length;
+        console.log(history_i);
+
+        socket.emit('command', user, cmd);
         $('form input:first').val('');
+        $('form input:first').focus();
+
         return false;
+    });
+
+    $(window).keydown (function (e) {
+
+        function reflect () {
+            console.dir(history);
+            console.log('Index: ' + history_i);
+            console.log('--------------------')
+            var cmd = history[history_i];
+            $('form input:first').val(cmd);
+            $('form input:first').focus();
+        }
+
+        switch (e.keyCode) {
+            // Up
+            case 38: 
+                if (history_i > 0) {
+                    history_i--; reflect();
+                }
+                e.preventDefault();
+                return false;
+                break;
+            // Down
+            case 40:
+                if (history_i < history.length) {
+                    history_i++; reflect();
+                }
+                e.preventDefault();
+                return false;
+                break;
+        }
     });
 
 });
