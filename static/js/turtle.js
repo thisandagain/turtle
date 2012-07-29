@@ -127,7 +127,9 @@ function CanvasTurtle(canvas_ctx, isUser, width, height) {
     };
 
     this.clear = function () {
-        //canvas_ctx.clearRect(0, 0, width, height);
+        if (isUser) {
+            canvas_ctx.clearRect(0, 0, width, height);
+        }
     };
 
     this.home = function () {
