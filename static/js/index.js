@@ -48,18 +48,19 @@ $(document).ready(function() {
     /**
      * Init new user
      */
-    users[user] = new CanvasTurtle(user_ctx, true, size.width, size.height);
+    users[user] = new CanvasTurtle(user_ctx, turtle_ctx, true, size.width, size.height);
     users[user].home();
 
     /**
      * Socket.io events
      */
-    var socket = io.connect('http://turtle.jit.su');
+    //var socket = io.connect('http://turtle.jit.su');
+    var socket = io.connect('http://localhost');
 
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
         if (typeof users[data.uid] === 'undefined') {
-            users[data.uid] = new CanvasTurtle(network_ctx, false, size.width, size.height);
+            users[data.uid] = new CanvasTurtle(network_ctx, turtle_ctx, false, size.width, size.height);
         }
 
         // Pass package to user context

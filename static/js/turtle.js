@@ -6,7 +6,7 @@
  *          Andrew Sliwinski <andrew@diy.org>
  */
 
-function CanvasTurtle(canvas_ctx, isUser, width, height) {
+function CanvasTurtle(canvas_ctx, turtle_ctx, isUser, width, height) {
     width   = Number(width);
     height  = Number(height);
 
@@ -183,6 +183,12 @@ function CanvasTurtle(canvas_ctx, isUser, width, height) {
     };
 
     this.begin = function () {
+        // Purge turtle context for user
+        if (isUser) {
+            turtle_ctx.clearRect(0, 0, width, height);
+        }
+
+        // Cleanup
         canvas_ctx.fillText = canvas_ctx.fillText || function fillText(string, x, y) { };
     };
 
@@ -190,7 +196,7 @@ function CanvasTurtle(canvas_ctx, isUser, width, height) {
         if (this.visible) {
             var d   = 6;
             var m   = 1.9;
-            var ctx = canvas_ctx;
+            var ctx = (isUser) ? turtle_ctx : canvas_ctx;
             var restore = ctx.fillStyle;
 
             ctx.fillStyle = (isUser) ? '#36c7fb' : '#ddd';
