@@ -54,7 +54,7 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    var socket = io.connect('http://192.168.1.66');
+    var socket = io.connect('http://turtle.jit.su');
 
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
