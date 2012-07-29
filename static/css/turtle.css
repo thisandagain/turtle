@@ -18,6 +18,20 @@ body {
     font-size: 14px;
 }
 
+h1, h2 {
+    margin: 0px 0px 4px 0px;
+
+    font-weight: 300;
+}
+
+p {
+    margin: 0px 0px 20px 0px;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    font-size: 0.9em;
+}
+
 /**
  * ID definitions
  */
@@ -37,16 +51,17 @@ body {
     height: 100%;
 }
 
-#input {
+#input, #reference, #intro {
     display: block;
     position: absolute;
 
-    width: 700px;
-    height: 75px;
+    width: 650px;
+    height: 30px;
     top: 0%;
     left: 50%;
 
     margin: 20px 0px 0px -350px;
+    padding: 22px 25px 25px 25px;
     background-color: #efefef;
     border-radius: 4px;
 }
@@ -58,7 +73,6 @@ body {
     width: 650px;
     height: 30px;
 
-    margin: 20px auto 0px auto;
     border-radius: 4px;
     outline: none;
     
@@ -67,6 +81,18 @@ body {
     font-size: 1.2em;
 }
 
+#reference {
+    height: 200px;
+    top: 100px;
+}
+
 /**
  * Class definitions
  */
+.section {
+    
+}
+
+.cmd {
+    
+}
