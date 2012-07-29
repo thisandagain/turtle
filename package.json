@@ -12,5 +12,9 @@
   "optionalDependencies": {},
   "engines": {
     "node": "*"
+  },
+  "subdomain": "turtle",
+  "scripts": {
+    "start": "app.js"
   }
 }
