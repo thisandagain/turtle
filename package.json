@@ -2,11 +2,13 @@
   "author": "",
   "name": "turtle",
   "description": "REPL + MMOG = WAT",
-  "version": "0.1.0",
+  "version": "0.1.0-1",
   "dependencies": {
     "socket.io": "~0.9.7",
     "tap": "~0.2.6",
-    "node-static": "~0.6.0"
+    "node-static": "~0.6.0",
+    "async": "~0.1.22",
+    "bufferstream": "~0.5.1"
   },
   "devDependencies": {},
   "optionalDependencies": {},
