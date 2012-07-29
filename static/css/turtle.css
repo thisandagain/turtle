@@ -35,7 +35,7 @@ p {
 /**
  * ID definitions
  */
-#network, #user, #turtle {
+#network, #user, #command, #turtle {
     display: block;
     position: absolute;
 

@@ -23,6 +23,7 @@ $(document).ready(function() {
 
     var network_ctx = document.getElementById('network').getContext('2d');
     var user_ctx    = document.getElementById('user').getContext('2d');
+    var command_ctx = document.getElementById('command').getContext('2d');
     var turtle_ctx  = document.getElementById('turtle').getContext('2d');
 
     /**
@@ -32,12 +33,10 @@ $(document).ready(function() {
         size.width  = $(window).width();
         size.height = $(window).height();
 
-        network_ctx.canvas.width    = size.width;
-        network_ctx.canvas.height   = size.height;
-        user_ctx.canvas.width       = size.width;
-        user_ctx.canvas.height      = size.height;
-        turtle_ctx.canvas.width     = size.width;
-        turtle_ctx.canvas.height    = size.height;
+        network_ctx.canvas.width    = size.width; network_ctx.canvas.height   = size.height;
+        user_ctx.canvas.width       = size.width; user_ctx.canvas.height      = size.height;
+        command_ctx.canvas.width    = size.width; command_ctx.canvas.height   = size.height;
+        turtle_ctx.canvas.width     = size.width; turtle_ctx.canvas.height    = size.height;
     }
     calc();
 
