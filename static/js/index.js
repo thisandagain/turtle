@@ -52,8 +52,8 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    //var socket = io.connect('http://turtle.jit.su');
-    var socket = io.connect('http://localhost');
+    var socket = io.connect('http://turtle.jit.su');
+    //var socket = io.connect('http://localhost');
 
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
