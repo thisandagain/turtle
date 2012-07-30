@@ -23,7 +23,6 @@ $(document).ready(function() {
 
     var network_ctx = document.getElementById('network').getContext('2d');
     var user_ctx    = document.getElementById('user').getContext('2d');
-    var command_ctx = document.getElementById('command').getContext('2d');
     var turtle_ctx  = document.getElementById('turtle').getContext('2d');
 
     /**
@@ -35,7 +34,6 @@ $(document).ready(function() {
 
         network_ctx.canvas.width    = size.width; network_ctx.canvas.height   = size.height;
         user_ctx.canvas.width       = size.width; user_ctx.canvas.height      = size.height;
-        command_ctx.canvas.width    = size.width; command_ctx.canvas.height   = size.height;
         turtle_ctx.canvas.width     = size.width; turtle_ctx.canvas.height    = size.height;
     }
     calc();
@@ -62,6 +60,12 @@ $(document).ready(function() {
             users[data.uid] = new CanvasTurtle(network_ctx, turtle_ctx, false, size.width, size.height);
         }
 
+        // Event tracker
+        var tracker = {
+            x: users[data.uid].x,
+            y: users[data.uid].y
+        };
+
         // Pass package to user context
         for (var i = 0; i < data.package.length; i++) {
             for (var prop in data.package[i]) {
@@ -72,9 +76,12 @@ $(document).ready(function() {
                 );
             }
         }
-
-        // End
         users[data.uid].end();
+
+        // Render
+        var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px;"><img src="/images/ui_dot.png" />';
+        var inject_det = '<div class="detail">' + data.command + '</div>';
+        $('#command').append(inject_cmd + inject_det + '</div>');
 
         // Debug
         console.dir(data);
@@ -101,6 +108,15 @@ $(document).ready(function() {
         $('form input:first').focus();
 
         return false;
+    });
+
+    $('.cmd').live('click',function () {
+        var item = $(this).find('.detail');
+        if (item.css('display') === 'block') {
+            item.css('display', 'none');
+        } else {
+            item.css('display', 'block');
+        }
     });
 
     $(window).keydown (function (e) {

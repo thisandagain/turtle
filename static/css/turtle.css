@@ -43,15 +43,7 @@ p {
     height: 100%;
 }
 
-#base {
-    display: block;
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-}
-
-#input, #reference, #intro {
+#input {
     display: block;
     position: absolute;
 
@@ -89,10 +81,24 @@ p {
 /**
  * Class definitions
  */
-.section {
-    
+.cmd {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    cursor: hand;
+
+    height: 20px;
+    margin: -10px 0px 0px -10px;
 }
 
-.cmd {
-    
+.cmd .detail {
+    display: none;
+    position: relative;
+
+    height: 20px;
+    margin: -26px 0px 0px 22px;
+    padding: 4px 4px 0px 4px;
+    overflow: visible;
+
+    background-color: #f9f94f;
 }
