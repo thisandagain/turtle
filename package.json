@@ -16,6 +16,9 @@
     "node": "*"
   },
   "subdomain": "turtle",
+  "domains": [
+    "turtle.diy.org"
+  ],
   "scripts": {
     "start": "app.js"
   }
