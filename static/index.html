@@ -16,14 +16,26 @@
         <!-- Rendering layers -->
         <canvas id="network"></canvas>
         <canvas id="user"></canvas>
-        <canvas id="turtle"></canvas>
         <div id="command"></div>
+        <canvas id="turtle"></canvas>
 
         <!-- Input -->
         <div id="input">
             <form>
                 <input type="text" name="command" placeholder="Type code here... try 'FORWARD 50 RIGHT 90 FORWARD 25'" />
             </form>
+            
+            <button id="commandBtn" title="Toggle Commands">
+                <img src="/images/ui_cmd_btn.png" width="34" height="34" alt="Toggle Commands" />
+            </button>
+
+            <button id="helpBtn" title="Help">
+                <img src="/images/ui_help_btn.png" width="34" height="34" alt="Help" />
+            </button>
+
+            <button id="saveBtn" title="Save PNG">
+                <img src="/images/ui_save_btn.png" width="34" height="34" alt="Save" />
+            </button>
         </div>
 
         <!-- ##########################################
@@ -32,6 +44,7 @@
         <!-- JS -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/tipsy.js"></script>
         <script src="/js/turtle.js"></script>
         <script src="/js/index.js"></script>
 

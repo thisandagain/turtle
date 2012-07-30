@@ -79,10 +79,13 @@ $(document).ready(function() {
         }
         users[data.uid].end();
 
-        // Render
-        var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px;"><img src="/images/ui_dot.png" />';
-        var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
-        $('#command').append(inject_cmd + inject_det + '</div>');
+        // Render command layer
+        if (data.uid !== user) {
+            z_i++;  // Ensure that command layer is at the top of the stack
+            var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.png" />';
+            var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
+            $('#command').append(inject_cmd + inject_det + '</div>');
+        }
 
         // Debug
         console.dir(data);
@@ -97,7 +100,7 @@ $(document).ready(function() {
     });
 
     /**
-     * UI events
+     * Form
      */
     $('form').submit(function() {
         // Update history
@@ -115,29 +118,8 @@ $(document).ready(function() {
         return false;
     });
 
-    $('.cmd').live('click',function () {
-        // Bring to front
-        z_i++;
-        $(this).css('z-index', z_i);
-
-        // Toggle detail
-        var item = $(this).find('.detail');
-        if (item.css('display') === 'block') {
-            item.css('display', 'none');
-        } else {
-            item.css('display', 'block');
-        }
-
-        // Reset
-        $('.cmd').not(this).find('.detail').css('display', 'none');
-    });
-
     $(window).keydown (function (e) {
-
         function reflect () {
-            console.dir(history);
-            console.log('Index: ' + history_i);
-            console.log('--------------------')
             var cmd = history[history_i];
             $('form input:first').val(cmd);
             $('form input:first').focus();
@@ -161,6 +143,49 @@ $(document).ready(function() {
                 return false;
                 break;
         }
+    });
+
+    /**
+     * Buttons
+     */
+    $('button').tipsy({gravity: 'n'});
+
+    $('#commandBtn').click(function (e) {
+        var item = $('#command');
+        if (item.css('display') === 'block') {
+            item.css('display', 'none');
+        } else {
+            item.css('display', 'block');
+        }
+    });
+
+    $('#helpBtn').click(function (e) {
+        window.open('http://www.terrapinlogo.com/Help/commands.html');
+    });
+
+    $('#saveBtn').click(function (e) {
+        var canvas = document.getElementById('user');
+        window.open(canvas.toDataURL('image/png'));
+    });
+
+    /**
+     * Commands
+     */
+    $('.cmd').live('click',function () {
+        // Bring to front
+        z_i++;
+        $(this).css('z-index', z_i);
+
+        // Toggle detail
+        var item = $(this).find('.detail');
+        if (item.css('display') === 'block') {
+            item.css('display', 'none');
+        } else {
+            item.css('display', 'block');
+        }
+
+        // Reset
+        $('.cmd').not(this).find('.detail').css('display', 'none');
     });
 
 });
