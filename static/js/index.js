@@ -15,7 +15,8 @@ $(document).ready(function() {
     var user        = 'guest::' + rand + epoch,
         users       = new Object(null),
         history     = [],
-        history_i   = 0;
+        history_i   = 0,
+        z_i         = 99,
         size        = {
             width:  $(window).width(),
             height: $(window).height()
@@ -80,7 +81,7 @@ $(document).ready(function() {
 
         // Render
         var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px;"><img src="/images/ui_dot.png" />';
-        var inject_det = '<div class="detail">' + data.command + '</div>';
+        var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
         $('#command').append(inject_cmd + inject_det + '</div>');
 
         // Debug
@@ -99,10 +100,14 @@ $(document).ready(function() {
      * UI events
      */
     $('form').submit(function() {
+        // Update history
         var cmd = $('form input:first').val();
         history.push(cmd); history_i = history.length;
-        console.log(history_i);
 
+        // Hide command layer details
+        $('.cmd .detail').css('display', 'none');
+
+        // Emit & reset
         socket.emit('command', user, cmd);
         $('form input:first').val('');
         $('form input:first').focus();
@@ -111,12 +116,20 @@ $(document).ready(function() {
     });
 
     $('.cmd').live('click',function () {
+        // Bring to front
+        z_i++;
+        $(this).css('z-index', z_i);
+
+        // Toggle detail
         var item = $(this).find('.detail');
         if (item.css('display') === 'block') {
             item.css('display', 'none');
         } else {
             item.css('display', 'block');
         }
+
+        // Reset
+        $('.cmd').not(this).find('.detail').css('display', 'none');
     });
 
     $(window).keydown (function (e) {
