@@ -2,7 +2,7 @@
   "author": "",
   "name": "turtle",
   "description": "Learn how to code with friends",
-  "version": "0.1.1",
+  "version": "0.1.1-2",
   "dependencies": {
     "async": "~0.1.22",
     "bufferstream": "~0.5.1",
