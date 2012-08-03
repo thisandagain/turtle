@@ -1,25 +1,26 @@
 {
-  "author": "",
-  "name": "turtle",
-  "description": "Learn how to code with friends",
-  "version": "0.1.1-2",
-  "dependencies": {
-    "async": "~0.1.22",
-    "bufferstream": "~0.5.1",
-    "node-static": "~0.6.0",
-    "socket.io": "~0.9.7",
-    "tap": "~0.2.6"
-  },
-  "devDependencies": {},
-  "optionalDependencies": {},
-  "engines": {
-    "node": "*"
-  },
-  "subdomain": "turtle",
-  "domains": [
-    "turtle.diy.org"
-  ],
-  "scripts": {
-    "start": "app.js"
-  }
+    "author": "DIY Co. <https://diy.org>",
+    "name": "turtle",
+    "description": "Code with friends.",
+    "version": "0.2.0",
+    "dependencies": {
+        "async": "0.1.X",
+        "bufferstream": "0.5.X",
+        "node-static": "0.6.X",
+        "socket.io": "0.9.X",
+        "tap": "0.2.X"
+    },
+    "devDependencies": {},
+    "optionalDependencies": {},
+    "engines": {
+        "node": ">=0.6"
+    },
+    "subdomain": "turtle",
+    "domains": [
+        "turtle.diy.org"
+    ],
+    "scripts": {
+        "start": "app.js",
+        "test": "tap ./test/*.js"
+    }
 }

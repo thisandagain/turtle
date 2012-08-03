@@ -13,7 +13,7 @@ var app     = require('http').createServer(handler),
     io      = require('socket.io').listen(app),
     static  = require('node-static'),
 
-    logo    = require('./logo/lib/index.js');
+    logo    = require('./lib/index.js');
 
 /**
  * Listen
