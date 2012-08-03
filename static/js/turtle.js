@@ -81,13 +81,15 @@ function CanvasTurtle(canvas_ctx, turtle_ctx, isUser, width, height) {
     };
 
     this.setcolor = function (color) {
-        if (STANDARD_COLORS[color] !== undefined) {
-            this.color = STANDARD_COLORS[color];
-        } else {
-            this.color = color;
+        if (isUser) {
+            if (STANDARD_COLORS[color] !== undefined) {
+                this.color = STANDARD_COLORS[color];
+            } else {
+                this.color = color;
+            }
+            canvas_ctx.strokeStyle = this.color;
+            canvas_ctx.fillStyle = this.color;
         }
-        canvas_ctx.strokeStyle = this.color;
-        canvas_ctx.fillStyle = this.color;
     };
     this.getcolor = function () { return this.color; };
 
@@ -214,10 +216,11 @@ function CanvasTurtle(canvas_ctx, turtle_ctx, isUser, width, height) {
     // ------------------------
     // ------------------------
 
-    canvas_ctx.lineCap = 'round';
-    canvas_ctx.fillStyle = (isUser) ? '#36c7fb' : '#ddd';
+    canvas_ctx.lineCap      = 'round';
+    canvas_ctx.fillStyle    = (isUser) ? '#36c7fb' : '#ddd';
+    canvas_ctx.strokeStyle  = (isUser) ? '#000000' : '#ddd';
+    this.color              = (isUser) ? '#000000' : '#ddd';
 
-    (isUser) ? this.setcolor('#000000') : this.setcolor('#ddd');
     this.setwidth(1);
     this.setpenmode('paint');
     this.setfontsize(14);
