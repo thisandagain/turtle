@@ -61,5 +61,6 @@ async.auto({
     test("Catch errors", function (t) {
         t.equal(err, null, "Errors should be null");
         t.end();
+        process.exit();
     });
 });
