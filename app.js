@@ -46,7 +46,7 @@ function compose (from, cmd, obj) {
 /**
  * Sockets
  */
-io.configure('production', function () {
+io.configure(function () {
     io.enable('browser client etag');
     io.set('log level', 1);
 });
