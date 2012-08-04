@@ -57,7 +57,11 @@ io.sockets.on('connection', function (socket) {
             if (err) {
                 socket.emit('error', compose(from, data, err));
             } else {
-                io.sockets.volatile.emit('instruction', compose(from, data, obj));
+                // Emit to sender
+                socket.emit('instruction', compose(from, data, obj));
+
+                // Volatile broadcast to all
+                socket.broadcast.volatile.emit('instruction', compose(from, data, obj));
             }
         });
     });
