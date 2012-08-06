@@ -52,8 +52,8 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    //var socket = io.connect('http://turtle.diy.org');
-    var socket = io.connect('http://localhost');
+    var socket = io.connect('http://turtle.diy.org');
+    //var socket = io.connect('http://localhost');
     //var socket = io.connect('http://192.168.1.120');
 
     socket.on('instruction', function (data) {
