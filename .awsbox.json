@@ -1,0 +1,7 @@
+{
+    "processes": [ "app.js" ],
+    "packages": [
+        "gcc",
+        "make"
+    ]
+}
