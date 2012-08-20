@@ -17,7 +17,7 @@ var app     = require('http').createServer(handler),
 /**
  * Listen
  */
-app.listen(process.env.PORT || 80, '127.0.0.1');
+app.listen(process.env.PORT || 3000, '127.0.0.1');
 
 /**
  * Server
