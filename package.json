@@ -2,26 +2,22 @@
   "author": "DIY Co. <https://diy.org>",
   "name": "turtle",
   "description": "Code with friends.",
+  "homepage": "https://github.com/thisandagain/turtle",
   "version": "0.2.0",
   "dependencies": {
-    "async": "0.1.X",
-    "bufferstream": "0.5.X",
     "node-static": "0.6.X",
     "socket.io": "0.9.X",
-    "tap": "0.2.X",
-    "fork-pool": "0.0.X"
+    "logo": "~0.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tap": "0.2.X"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": ">=0.6"
   },
-  "subdomain": "turtle",
-  "domains": [
-    "turtle.diy.org"
-  ],
   "scripts": {
     "start": "app.js",
-    "test": "tap ./test/*.js"
+    "test": "tap test/*.js"
   }
 }
