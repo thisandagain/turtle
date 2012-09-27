@@ -7,18 +7,14 @@
   "dependencies": {
     "node-static": "0.6.X",
     "socket.io": "0.9.X",
-    "logo": "~0.1.0"
+    "logo": ">=0.0.1"
   },
-  "devDependencies": {
-    "awsbox": "~0.2.15",
-    "tap": "0.2.X"
-  },
+  "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
     "node": ">=0.6"
   },
   "scripts": {
     "start": "app.js",
-    "test": "tap test/*.js"
   }
 }
