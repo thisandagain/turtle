@@ -3,7 +3,7 @@
   "name": "turtle",
   "description": "Code with friends.",
   "homepage": "https://github.com/thisandagain/turtle",
-  "version": "0.2.0",
+  "version": "0.0.1",
   "dependencies": {
     "node-static": "0.6.X",
     "socket.io": "0.9.X",
@@ -14,7 +14,5 @@
   "engines": {
     "node": ">=0.6"
   },
-  "scripts": {
-    "start": "app.js",
-  }
+  "scripts": {}
 }
