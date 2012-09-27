@@ -52,10 +52,7 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    //var socket = io.connect('http://turtle.diy.org');
-    var socket = io.connect('http://localhost');
-    //var socket = io.connect('http://192.168.1.120');
-
+    var socket = io.connect('http://turtle.diy.org');
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
         if (typeof users[data.uid] === 'undefined') {
