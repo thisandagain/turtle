@@ -47,6 +47,7 @@ function compose (from, cmd, obj) {
  */
 io.configure(function () {
     io.enable('browser client etag');
+    io.enable('browser client minification')
     io.set('log level', 2);
 });
 
