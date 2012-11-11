@@ -38,6 +38,19 @@ $(document).ready(function() {
         turtle_ctx.canvas.width     = size.width; turtle_ctx.canvas.height    = size.height;
     }
     calc();
+    
+    function runCommand(cmd) {
+      // Update history
+      history.push(cmd); history_i = history.length;
+
+      // Hide command layer details
+      $('.cmd .detail').css('display', 'none');
+
+      // Emit & reset
+      socket.emit('command', user, cmd);
+      $('form input:first').val('');
+      $('form input:first').focus();
+    }
 
     $(window).resize(function() {
         window.location.reload();
@@ -100,18 +113,8 @@ $(document).ready(function() {
      * Form
      */
     $('form').submit(function() {
-        // Update history
         var cmd = $('form input:first').val();
-        history.push(cmd); history_i = history.length;
-
-        // Hide command layer details
-        $('.cmd .detail').css('display', 'none');
-
-        // Emit & reset
-        socket.emit('command', user, cmd);
-        $('form input:first').val('');
-        $('form input:first').focus();
-
+        runCommand(cmd);
         return false;
     });
 
@@ -164,6 +167,19 @@ $(document).ready(function() {
         var canvas = document.getElementById('user');
         window.open(canvas.toDataURL('image/png'));
     });
+
+    $('#gistBtn').click(function (e) {
+      var gistID = window.prompt("Enter github gist ID","")
+      var gotGist = function(gist) {
+        var instructions = gist.files[Object.keys(gist.files)[0]].content
+        runCommand(instructions)
+      }
+      $.ajax({ 
+        url: '/gist/' + gistID, 
+        dataType: 'json',
+        success: gotGist
+      })
+    })
 
     /**
      * Commands
