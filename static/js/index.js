@@ -52,7 +52,7 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    var socket = io.connect('http://turtle.diy.org');
+    var socket = io.connect('http://localhost:3000');
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
         if (typeof users[data.uid] === 'undefined') {
@@ -62,7 +62,8 @@ $(document).ready(function() {
         // Event tracker
         var tracker = {
             x: users[data.uid].x,
-            y: users[data.uid].y
+            y: users[data.uid].y,
+            r: 0
         };
 
         // Pass package to user context
@@ -78,7 +79,7 @@ $(document).ready(function() {
         users[data.uid].end();
 
         // Render command layer
-        if (data.uid !== user) {
+        if (data.uid !== user && data.command.toUpperCase() !== 'HOME' && data.command.toUpperCase() !== 'CLEAN') {
             z_i++;  // Ensure that command layer is at the top of the stack
             var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.png" />';
             var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
@@ -92,8 +93,6 @@ $(document).ready(function() {
 
     socket.on('error', function (data) {
         alert(data.package);
-
-        // Debug
         console.dir(data);
     });
 
@@ -169,7 +168,7 @@ $(document).ready(function() {
     /**
      * Commands
      */
-    $('.cmd').live('click',function () {
+    $('.cmd').live('click', function () {
         // Bring to front
         z_i++;
         $(this).css('z-index', z_i);
@@ -186,4 +185,14 @@ $(document).ready(function() {
         $('.cmd').not(this).find('.detail').css('display', 'none');
     });
 
+    $('.cmd > .detail').live('click', function (e) {
+        var command = $(this).html();
+        $('form input:first').val(command);
+        $('form input:first').focus();
+    });
+
+    $('#welcome').click(function (e) {
+        e.preventDefault();
+        $('#welcome').hide();
+    });
 });

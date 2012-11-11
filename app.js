@@ -11,8 +11,9 @@
 var app     = require('http').createServer(handler),
     crypto  = require('crypto'),
     io      = require('socket.io').listen(app),
-    static  = require('node-static'),
-    logo    = require('logo');
+    static  = require('node-static');
+
+var logo    = require('logo');
 
 /**
  * Listen
