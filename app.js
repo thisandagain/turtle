@@ -18,7 +18,9 @@ var logo    = require('logo');
 /**
  * Listen
  */
-app.listen(Number(process.env.PORT) || '3000');
+var port    = Number(process.env.PORT) || '3000';
+app.listen(port);
+console.log('Turtle listening on port %d', port);
 
 /**
  * Server
