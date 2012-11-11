@@ -16,6 +16,6 @@
     "node": ">=0.6"
   },
   "scripts": {
-    "start": "app"
+    "start": "node app"
   }
 }
