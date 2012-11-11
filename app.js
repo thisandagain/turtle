@@ -11,6 +11,7 @@
 var app     = require('http').createServer(handler),
     crypto  = require('crypto'),
     io      = require('socket.io').listen(app),
+    request = require('request'),
     static  = require('node-static');
 
 var logo    = require('logo');
@@ -27,9 +28,15 @@ console.log('Turtle listening on port %d', port);
  */
 var server  = new static.Server('./static', { cache: 0 });
 function handler (req, res) {
+    if (req.url.match('^\/gist')) return getGist(req, res)
     req.addListener('end', function () {
         server.serve(req, res);
     });
+}
+
+function getGist(req, res) {
+    var gistID = req.url.split('/gist/')[1].replace('/[^0-9]+/g', '')
+    request({json: true, url: "https://api.github.com/gists/" + gistID}).pipe(res)
 }
 
 /**

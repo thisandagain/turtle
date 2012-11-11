@@ -7,12 +7,15 @@
   "dependencies": {
     "node-static": "0.6.X",
     "socket.io": "0.9.X",
-    "logo": ">=0.0.1"
+    "logo": ">=0.0.1",
+    "request": "2.12.0"
   },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
     "node": ">=0.6"
   },
-  "scripts": {}
+  "scripts": {
+    "start": "app"
+  }
 }
