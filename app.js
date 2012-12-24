@@ -19,9 +19,10 @@ var logo    = require('logo');
 /**
  * Listen
  */
+var host    = process.env.HOST || process.argv[2] || 'localhost';
 var port    = Number(process.env.PORT) || '3000';
 app.listen(port);
-console.log('Turtle listening on port %d', port);
+console.log('Turtle listening at %s on port %d', host, port);
 
 /**
  * Server
