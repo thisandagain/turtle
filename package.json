@@ -5,10 +5,10 @@
   "homepage": "https://github.com/thisandagain/turtle",
   "version": "0.0.1",
   "dependencies": {
-    "node-static": "0.6.X",
-    "socket.io": "0.9.X",
-    "logo": ">=0.0.1",
-    "request": "2.12.0"
+    "node-static": "~0.6.0",
+    "socket.io": "~0.9.0",
+    "logo": "~0.1.3",
+    "request": "~2.12.0"
   },
   "devDependencies": {},
   "optionalDependencies": {},
