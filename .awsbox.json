@@ -1,3 +1,7 @@
 {
-    "processes": [ "app.js" ]
+    "processes": [ "app.js" ],
+    "env": {
+        "NODE_ENV": "production",
+        "HOST": "http://turtle.diy.org"
+    }
 }
