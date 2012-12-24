@@ -28,26 +28,27 @@ console.log('Turtle listening on port %d', port);
  */
 var server  = new static.Server('./static', { cache: 0 });
 function handler (req, res) {
-    if (req.url.match('^\/gist')) return getGist(req, res)
+    if (req.url.match('^\/gist')) return getGist(req, res);
     req.addListener('end', function () {
         server.serve(req, res);
     });
 }
 
-function getGist(req, res) {
-    var gistID = req.url.split('/gist/')[1].replace('/[^0-9]+/g', '')
-    request({json: true, url: "https://api.github.com/gists/" + gistID}).pipe(res)
+function getGist (req, res) {
+    var gistID = req.url.split('/gist/')[1].replace('/[^0-9]+/g', '');
+    request({json: true, url: 'https://api.github.com/gists/' + gistID}).pipe(res);
 }
 
 /**
  * Composition
  */
-function compose (from, cmd, obj) {
+function compose (from, state, cmd, obj) {
     return {
         user:       from.split('::')[0],
         uid:        from,
+        state:      state,
         command:    cmd,
-        digest:     crypto.createHash('sha1').update(JSON.stringify(obj)).digest("hex"),
+        digest:     crypto.createHash('sha1').update(JSON.stringify(obj)).digest('hex'),
         package:    obj
     }
 }
@@ -62,17 +63,13 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-    socket.on('command', function (from, data) {
+    socket.on('command', function (from, state, data) {
         logo.convert(data, function (err, obj) {
-            if (err) {
-                socket.emit('error', compose(from, data, err));
-            } else {
-                // Emit to sender
-                socket.emit('instruction', compose(from, data, obj));
+            if (err) return socket.emit('error', compose(from, state, data, err));
 
-                // Volatile broadcast to all
-                socket.broadcast.volatile.emit('instruction', compose(from, data, obj));
-            }
+            // Emit to sender & volatile emit to all
+            socket.emit('instruction', compose(from, state, data, obj));
+            socket.broadcast.volatile.emit('instruction', compose(from, state, data, obj));
         });
     });
 });

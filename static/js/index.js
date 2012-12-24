@@ -17,10 +17,7 @@ $(document).ready(function() {
         history     = [],
         history_i   = 0,
         z_i         = 99,
-        size        = {
-            width:  $(window).width(),
-            height: $(window).height()
-        };
+        size        = Object.create(null);
 
     var network_ctx = document.getElementById('network').getContext('2d');
     var user_ctx    = document.getElementById('user').getContext('2d');
@@ -47,7 +44,7 @@ $(document).ready(function() {
       $('.cmd .detail').css('display', 'none');
 
       // Emit & reset
-      socket.emit('command', user, cmd);
+      socket.emit('command', user, users[user], cmd);
       $('form input:first').val('');
       $('form input:first').focus();
     }
@@ -65,19 +62,16 @@ $(document).ready(function() {
     /**
      * Socket.io events
      */
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect(_host || 'http://localhost:3000');
     socket.on('instruction', function (data) {
         // Check for user context & create if not found
         if (typeof users[data.uid] === 'undefined') {
             users[data.uid] = new CanvasTurtle(network_ctx, turtle_ctx, false, size.width, size.height);
+            
+            users[data.uid].x = data.state.x;
+            users[data.uid].y = data.state.y;
+            users[data.uid].r = data.state.r;
         }
-
-        // Event tracker
-        var tracker = {
-            x: users[data.uid].x,
-            y: users[data.uid].y,
-            r: 0
-        };
 
         // Pass package to user context
         for (var i = 0; i < data.package.length; i++) {
@@ -93,15 +87,14 @@ $(document).ready(function() {
 
         // Render command layer
         if (data.uid !== user && data.command.toUpperCase() !== 'HOME' && data.command.toUpperCase() !== 'CLEAN') {
-            z_i++;  // Ensure that command layer is at the top of the stack
-            var inject_cmd = '<div class="cmd" style="top: ' + tracker.y + 'px; left: ' + tracker.x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.png" />';
+            z_i++;      // Ensure that command layer is at the top of the stack
+            var inject_cmd = '<div class="cmd" style="top: ' + users[data.uid].y + 'px; left: ' + users[data.uid].x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.png" />';
             var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
             $('#command').append(inject_cmd + inject_det + '</div>');
         }
 
         // Debug
-        console.dir(data);
-        console.log('x: %s | y: %s', users[data.uid].x, users[data.uid].y);
+        console.log('x: %s | y: %s | r: %s', users[data.uid].x, users[data.uid].y, users[data.uid].r);
     });
 
     socket.on('error', function (data) {
@@ -112,7 +105,7 @@ $(document).ready(function() {
     /**
      * Form
      */
-    $('form').submit(function() {
+    $('form').submit (function (e) {
         var cmd = $('form input:first').val();
         runCommand(cmd);
         return false;
@@ -127,7 +120,7 @@ $(document).ready(function() {
 
         switch (e.keyCode) {
             // Up
-            case 38: 
+            case 38:
                 if (history_i > 0) {
                     history_i--; reflect();
                 }
@@ -169,17 +162,18 @@ $(document).ready(function() {
     });
 
     $('#gistBtn').click(function (e) {
-      var gistID = window.prompt("Enter github gist ID","")
-      var gotGist = function(gist) {
-        var instructions = gist.files[Object.keys(gist.files)[0]].content
-        runCommand(instructions)
-      }
-      $.ajax({ 
-        url: '/gist/' + gistID, 
-        dataType: 'json',
-        success: gotGist
-      })
-    })
+        var gistID = window.prompt('Enter github gist ID','');
+        var gotGist = function(gist) {
+            var instructions = gist.files[Object.keys(gist.files)[0]].content
+            runCommand(instructions)
+        }
+
+        $.ajax({ 
+            url: '/gist/' + gistID, 
+            dataType: 'json',
+            success: gotGist
+        });
+    });
 
     /**
      * Commands
@@ -205,10 +199,5 @@ $(document).ready(function() {
         var command = $(this).html();
         $('form input:first').val(command);
         $('form input:first').focus();
-    });
-
-    $('#welcome').click(function (e) {
-        e.preventDefault();
-        $('#welcome').hide();
     });
 });
