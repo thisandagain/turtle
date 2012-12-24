@@ -17,41 +17,39 @@ $(document).ready(function() {
         history     = [],
         history_i   = 0,
         z_i         = 99,
-        size        = Object.create(null);
+        size        = {
+            width:  4000,
+            height: 4000
+        };
 
     var network_ctx = document.getElementById('network').getContext('2d');
     var user_ctx    = document.getElementById('user').getContext('2d');
     var turtle_ctx  = document.getElementById('turtle').getContext('2d');
 
+    network_ctx.canvas.width = size.width; network_ctx.canvas.height = size.height;
+    user_ctx.canvas.width    = size.width; user_ctx.canvas.height    = size.height;
+    turtle_ctx.canvas.width  = size.width; turtle_ctx.canvas.height  = size.height;
+
     /**
-     * Window size calc
+     * Scroll to center point
      */
-    function calc() {
-        size.width  = $(window).width();
-        size.height = $(window).height();
+    // @todo
 
-        network_ctx.canvas.width    = size.width; network_ctx.canvas.height   = size.height;
-        user_ctx.canvas.width       = size.width; user_ctx.canvas.height      = size.height;
-        turtle_ctx.canvas.width     = size.width; turtle_ctx.canvas.height    = size.height;
-    }
-    calc();
-    
+    /**
+     * Command helper
+     */
     function runCommand(cmd) {
-      // Update history
-      history.push(cmd); history_i = history.length;
+        // Update history
+        history.push(cmd); history_i = history.length;
 
-      // Hide command layer details
-      $('.cmd .detail').css('display', 'none');
+        // Hide command layer details
+        $('.cmd .detail').css('display', 'none');
 
-      // Emit & reset
-      socket.emit('command', user, users[user], cmd);
-      $('form input:first').val('');
-      $('form input:first').focus();
+        // Emit & reset
+        socket.emit('command', user, users[user], cmd);
+        $('form input:first').val('');
+        $('form input:first').focus();
     }
-
-    $(window).resize(function() {
-        window.location.reload();
-    });
 
     /**
      * Init new user
@@ -94,7 +92,7 @@ $(document).ready(function() {
         }
 
         // Debug
-        console.log('x: %s | y: %s | r: %s', users[data.uid].x, users[data.uid].y, users[data.uid].r);
+        console.log('x: %s | y: %s | r: %s --> %s', users[data.uid].x, users[data.uid].y, users[data.uid].r, data.uid);
     });
 
     socket.on('error', function (data) {
@@ -163,7 +161,7 @@ $(document).ready(function() {
 
     $('#gistBtn').click(function (e) {
         var gistID = window.prompt('Enter github gist ID','');
-        var gotGist = function(gist) {
+        var gotGist = function (gist) {
             var instructions = gist.files[Object.keys(gist.files)[0]].content
             runCommand(instructions)
         }

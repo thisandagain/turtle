@@ -63,8 +63,8 @@ input {
     display: block;
     position: absolute;
 
-    width: 100%;
-    height: 100%;
+    width: 4000px;
+    height: 4000px;
 }
 
 #command {
@@ -73,7 +73,7 @@ input {
 
 #input {
     display: block;
-    position: absolute;
+    position: fixed;
 
     width: 722px;
     height: 30px;
