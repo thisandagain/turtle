@@ -47,8 +47,8 @@ $(document).ready(function() {
 
         // Emit & reset
         socket.emit('command', user, users[user], cmd);
-        $('form input:first').val('');
-        $('form input:first').focus();
+        $('form input').first().val('');
+        $('form input').first().focus();
     }
 
     /**
@@ -103,17 +103,18 @@ $(document).ready(function() {
     /**
      * Form
      */
-    $('form').submit (function (e) {
-        var cmd = $('form input:first').val();
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var cmd = $('form input').first().val();
         runCommand(cmd);
-        return false;
     });
 
-    $(window).keydown (function (e) {
+    $(window).bind('keypress', function (e) {
         function reflect () {
             var cmd = history[history_i];
-            $('form input:first').val(cmd);
-            $('form input:first').focus();
+            $('form input').first().val(cmd);
+            $('form input').first().focus();
         }
 
         switch (e.keyCode) {
@@ -139,9 +140,7 @@ $(document).ready(function() {
     /**
      * Buttons
      */
-    $('button').tipsy({gravity: 'n'});
-
-    $('#commandBtn').click(function (e) {
+    $('#commandBtn').on('click', function (e) {
         var item = $('#command');
         if (item.css('display') === 'block') {
             item.css('display', 'none');
@@ -150,16 +149,16 @@ $(document).ready(function() {
         }
     });
 
-    $('#helpBtn').click(function (e) {
+    $('#helpBtn').on('click', function (e) {
         window.open('http://www.terrapinlogo.com/Help/commands.html');
     });
 
-    $('#saveBtn').click(function (e) {
+    $('#saveBtn').on('click', function (e) {
         var canvas = document.getElementById('user');
         window.open(canvas.toDataURL('image/png'));
     });
 
-    $('#gistBtn').click(function (e) {
+    $('#gistBtn').on('click', function (e) {
         var gistID = window.prompt('Enter github gist ID','');
         var gotGist = function (gist) {
             var instructions = gist.files[Object.keys(gist.files)[0]].content
@@ -176,7 +175,7 @@ $(document).ready(function() {
     /**
      * Commands
      */
-    $('.cmd').live('click', function () {
+    $('.cmd').live('click', function (e) {
         // Bring to front
         z_i++;
         $(this).css('z-index', z_i);
@@ -195,7 +194,7 @@ $(document).ready(function() {
 
     $('.cmd > .detail').live('click', function (e) {
         var command = $(this).html();
-        $('form input:first').val(command);
-        $('form input:first').focus();
+        $('form input').first().val(command);
+        $('form input').first().focus();
     });
 });
