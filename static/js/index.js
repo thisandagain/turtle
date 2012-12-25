@@ -110,7 +110,7 @@ $(document).ready(function() {
         runCommand(cmd);
     });
 
-    $(window).bind('keypress', function (e) {
+    $(window).on('keydown', function (e) {
         function reflect () {
             var cmd = history[history_i];
             $('form input').first().val(cmd);
