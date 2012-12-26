@@ -18,8 +18,9 @@ var logo    = require('logo');
  * Server
  */
 var config  = {
-    host:   process.env.HOST || process.argv[2] || 'localhost',
-    port:   Number(process.env.PORT) || '3000'
+    host:       process.env.HOST || process.argv[2] || 'localhost',
+    port:       Number(process.env.PORT) || '3000',
+    production: process.env.NODE_ENV === 'production'
 };
 var route   = require('./route.js')(router, config),
     app     = http.createServer(route);

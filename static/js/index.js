@@ -140,15 +140,6 @@ $(document).ready(function() {
     /**
      * Buttons
      */
-    $('#commandBtn').on('click', function (e) {
-        var item = $('#command');
-        if (item.css('display') === 'block') {
-            item.css('display', 'none');
-        } else {
-            item.css('display', 'block');
-        }
-    });
-
     $('#helpBtn').on('click', function (e) {
         window.open('http://www.terrapinlogo.com/Help/commands.html');
     });
@@ -156,20 +147,6 @@ $(document).ready(function() {
     $('#saveBtn').on('click', function (e) {
         var canvas = document.getElementById('user');
         window.open(canvas.toDataURL('image/png'));
-    });
-
-    $('#gistBtn').on('click', function (e) {
-        var gistID = window.prompt('Enter github gist ID','');
-        var gotGist = function (gist) {
-            var instructions = gist.files[Object.keys(gist.files)[0]].content
-            runCommand(instructions)
-        }
-
-        $.ajax({ 
-            url: '/gist/' + gistID, 
-            dataType: 'json',
-            success: gotGist
-        });
     });
 
     /**

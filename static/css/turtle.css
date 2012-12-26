@@ -67,21 +67,17 @@ input {
     height: 4000px;
 }
 
-#command {
-    display: none;
-}
-
 #input {
     display: block;
     position: fixed;
 
-    width: 722px;
+    width: 646px;
     height: 30px;
     top: 0%;
     left: 50%;
 
-    margin: 20px 0px 0px -388px;
-    padding: 22px 25px 25px 25px;
+    margin: 20px 0px 0px -347px;
+    padding: 22px 23px 25px 25px;
     background-color: #efefef;
     border-radius: 4px;
 }
