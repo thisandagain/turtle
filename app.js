@@ -8,37 +8,21 @@
 /**
  * Dependencies
  */
-var app     = require('http').createServer(handler),
-    crypto  = require('crypto'),
-    io      = require('socket.io').listen(app),
-    request = require('request'),
-    static  = require('node-static');
+var crypto  = require('crypto'),
+    http    = require('http'),
+    router  = require('router');
 
 var logo    = require('logo');
 
 /**
- * Listen
- */
-var host    = process.env.HOST || process.argv[2] || 'localhost';
-var port    = Number(process.env.PORT) || '3000';
-app.listen(port);
-console.log('Turtle listening at %s on port %d', host, port);
-
-/**
  * Server
  */
-var server  = new static.Server('./static', { cache: 0 });
-function handler (req, res) {
-    if (req.url.match('^\/gist')) return getGist(req, res);
-    req.addListener('end', function () {
-        server.serve(req, res);
-    });
-}
-
-function getGist (req, res) {
-    var gistID = req.url.split('/gist/')[1].replace('/[^0-9]+/g', '');
-    request({json: true, url: 'https://api.github.com/gists/' + gistID}).pipe(res);
-}
+var config  = {
+    host:   process.env.HOST || process.argv[2] || 'localhost',
+    port:   Number(process.env.PORT) || '3000'
+};
+var route   = require('./route.js')(router, config),
+    app     = http.createServer(route);
 
 /**
  * Composition
@@ -57,6 +41,7 @@ function compose (from, state, cmd, obj) {
 /**
  * Sockets
  */
+var io = require('socket.io').listen(app);
 io.configure(function () {
     io.enable('browser client etag');
     io.enable('browser client minification')
@@ -74,3 +59,9 @@ io.sockets.on('connection', function (socket) {
         });
     });
 });
+
+/**
+ * Listen
+ */
+app.listen(config.port);
+console.log('Turtle listening at %s on port %d', config.host, config.port);
