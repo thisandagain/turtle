@@ -87,7 +87,7 @@ $(document).ready(function() {
         // Render command layer
         if (data.uid !== user && data.command.toUpperCase() !== 'HOME' && data.command.toUpperCase() !== 'CLEAN') {
             z_i++;      // Ensure that command layer is at the top of the stack
-            var inject_cmd = '<div class="cmd" style="top: ' + users[data.uid].y + 'px; left: ' + users[data.uid].x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.png" />';
+            var inject_cmd = '<div class="cmd" style="top: ' + users[data.uid].y + 'px; left: ' + users[data.uid].x + 'px; z-index: ' + z_i + ';"><img src="/images/ui_dot.gif" width="20" height="20" alt="" />';
             var inject_det = '<div class="detail">' + data.command.toUpperCase() + '</div>';
             $('#command').append(inject_cmd + inject_det + '</div>');
         }
