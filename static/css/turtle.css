@@ -71,12 +71,12 @@ input {
     display: block;
     position: fixed;
 
-    width: 646px;
+    width: 608px;
     height: 30px;
     top: 0%;
     left: 50%;
 
-    margin: 20px 0px 0px -347px;
+    margin: 20px 0px 0px -328px;
     padding: 22px 23px 25px 25px;
     background-color: #efefef;
     border-radius: 4px;
