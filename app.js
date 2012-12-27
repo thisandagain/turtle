@@ -10,7 +10,11 @@
  */
 var crypto  = require('crypto'),
     http    = require('http'),
-    router  = require('router');
+    router  = require('router'),
+    argv    = require('optimist')
+                .default('h', 'localhost')
+                .default('p', 3000)
+                .argv;
 
 var logo    = require('logo');
 
@@ -18,8 +22,8 @@ var logo    = require('logo');
  * Server
  */
 var config  = {
-    host:       process.env.HOST || process.argv[2] || 'localhost',
-    port:       Number(process.env.PORT) || '3000',
+    host:       process.env.HOST || argv.h,
+    port:       Number(process.env.PORT) || argv.p,
     production: process.env.NODE_ENV === 'production'
 };
 var route   = require('./route.js')(router, config),
