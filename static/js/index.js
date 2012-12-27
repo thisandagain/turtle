@@ -18,8 +18,8 @@ $(document).ready(function() {
         history_i   = 0,
         z_i         = 99,
         size        = {
-            width:  4000,
-            height: 4000
+            width:  2880,
+            height: 1800
         };
 
     var network_ctx = document.getElementById('network').getContext('2d');
