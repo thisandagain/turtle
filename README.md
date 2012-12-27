@@ -1,9 +1,12 @@
 ## Turtle
 ### Code With Friends
 
-Turtle represents an experiment in designing an interface that allows multiple users to simultaniously work in a shared visual programming environment.
-
-### Run
+### Run (Development)
 ```bash
 node app.js
+```
+
+### Run (Production & Testing)
+```bash
+node app.js -h domain.com -p 80
 ```
