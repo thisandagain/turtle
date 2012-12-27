@@ -33,7 +33,8 @@ $(document).ready(function() {
     /**
      * Scroll to center point
      */
-    // @todo
+    $('html body').scrollLeft( (size.width / 2) - ($(window).width() / 2) );
+    $('html body').scrollTop( (size.height / 2) - ($(window).height() / 2) );
 
     /**
      * Command helper
